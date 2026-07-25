@@ -133,3 +133,4 @@ Interactive artwork uses real buttons with visible focus states. The runaway No 
 - Song: `public/audio/our-song.mp3`
 - Access answer: `access.acceptedAnswers` in `src/config/site.ts`
 - Playful opening questions and thresholds: `playfulGate` in `src/config/site.ts`
+<!-- Trigger Vercel deployment -->
