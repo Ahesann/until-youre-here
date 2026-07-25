@@ -66,7 +66,7 @@ export function CountdownScene({
       <div className="container countdown-content">
         <header className="countdown-hero">
           <p className="milestone">{milestoneMessage}</p>
-          <h1 id="countdown-heading" className="section-heading">
+          <h1 id="countdown-heading" className="section-heading" tabIndex={-1}>
             {siteConfig.copy.countdown.heading}
           </h1>
           <p className="supporting-copy">

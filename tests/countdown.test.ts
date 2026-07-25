@@ -190,6 +190,22 @@ function createConfig(
       submitLabel: "Submit",
       incorrectAnswerMessage: "No",
     },
+    playfulGate: {
+      enabled: true,
+      rememberCompletion: true,
+      repeatOnEveryVisit: false,
+      windowTitle: "Surprise",
+      questions: ["Ready?"],
+      yesLabel: "Yes",
+      noLabel: "No",
+      skipLabel: "Skip",
+      finalQuestionMessage: "Done",
+      hiddenHeartMessage: "Found",
+      hiddenHeartAfterNoEscapes: 4,
+      autoRevealHeartAfterNoEscapes: 7,
+      noEscapeMessages: ["No"],
+      completionStorageKey: "until-you-are-here:intro-completed:v1",
+    },
     copy: {
       metadata: {
         title: "Title",
