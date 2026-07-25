@@ -1,5 +1,7 @@
 export type ExperienceState = "access" | "opening" | "countdown" | "arrival";
 
+export type GateCompletionMethod = "yes" | "hidden-heart" | "skip";
+
 export type TimeRemaining = {
   totalMilliseconds: number;
   days: number;

@@ -1,7 +1,8 @@
 const STORAGE_PREFIX = "until-youre-here:v1";
 
 export const storageKeys = {
-  introComplete: `${STORAGE_PREFIX}:intro-complete`,
+  legacyIntroComplete: `${STORAGE_PREFIX}:intro-complete`,
+  introComplete: "until-you-are-here:intro-completed:v1",
   musicMuted: `${STORAGE_PREFIX}:music-muted`,
   accessGranted: `${STORAGE_PREFIX}:access-granted`,
 } as const;
@@ -66,6 +67,11 @@ export function writeSessionBoolean(key: string, value: boolean): void {
   }
 }
 
-export function removeOwnedExperienceState(): void {
+export function removeOwnedExperienceState(extraKeys: readonly string[] = []): void {
+  removeLocalKey(storageKeys.legacyIntroComplete);
   removeLocalKey(storageKeys.introComplete);
+
+  for (const key of extraKeys) {
+    removeLocalKey(key);
+  }
 }

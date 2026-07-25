@@ -28,6 +28,22 @@ export type SiteConfig = {
     submitLabel: string;
     incorrectAnswerMessage: string;
   };
+  playfulGate: {
+    enabled: boolean;
+    rememberCompletion: boolean;
+    repeatOnEveryVisit: boolean;
+    windowTitle: string;
+    questions: readonly string[];
+    yesLabel: string;
+    noLabel: string;
+    skipLabel: string;
+    finalQuestionMessage: string;
+    hiddenHeartMessage: string;
+    hiddenHeartAfterNoEscapes: number;
+    autoRevealHeartAfterNoEscapes: number;
+    noEscapeMessages: readonly string[];
+    completionStorageKey: string;
+  };
   copy: {
     metadata: {
       title: string;
@@ -136,6 +152,51 @@ export const siteConfig = {
     acceptedAnswers: ["replace-with-romantic-answer"],
     submitLabel: "Let me in",
     incorrectAnswerMessage: "That is not the little name I was thinking of.",
+  },
+
+  playfulGate: {
+    // Set enabled to false to use the original cinematic opening instead.
+    enabled: true,
+
+    // When true, returning visitors skip the playful opening after completion.
+    rememberCompletion: true,
+
+    // Set true during personal previews if the game should appear every visit.
+    repeatOnEveryVisit: false,
+
+    windowTitle: "Surprise",
+
+    // Use {wifeName} and {husbandName} anywhere in these messages.
+    questions: [
+      "Are you ready for a little surprise, {wifeName}?",
+      "Are you sure? Once you begin, there is no going back ❤️",
+      "Do you know someone in the UK is counting every second?",
+      "Do you know how much I miss you?",
+      "Last chance… are you ready to see how close we are?",
+    ],
+
+    yesLabel: "Yes",
+    noLabel: "No",
+    skipLabel: "Skip the little game",
+
+    finalQuestionMessage: "Then come a little closer, my love.",
+
+    hiddenHeartMessage:
+      "You found it. But my heart has already been yours for a long time.",
+
+    hiddenHeartAfterNoEscapes: 4,
+    autoRevealHeartAfterNoEscapes: 7,
+
+    noEscapeMessages: [
+      "Too slow 😄",
+      "Almost caught it.",
+      "It really does not want to be pressed.",
+      "Maybe there is another way…",
+      "Look carefully. My heart may be hiding nearby.",
+    ],
+
+    // The value stores only a simple completed flag in LocalStorage.
+    completionStorageKey: "until-you-are-here:intro-completed:v1",
   },
 
   copy: {

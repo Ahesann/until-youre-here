@@ -12,6 +12,7 @@ import { RomanticAccessScreen } from "@/components/access/RomanticAccessScreen";
 import { ArrivalScene } from "@/components/experience/ArrivalScene";
 import { CountdownScene } from "@/components/experience/CountdownScene";
 import { OpeningScene } from "@/components/experience/OpeningScene";
+import { PlayfulSurpriseGate } from "@/components/experience/PlayfulSurpriseGate";
 import { LoveLetter } from "@/components/letter/LoveLetter";
 import { MusicControl } from "@/components/controls/MusicControl";
 import { BurstParticles } from "@/components/effects/BurstParticles";
@@ -28,12 +29,16 @@ import { selectMilestone } from "@/lib/milestones";
 import {
   readLocalBoolean,
   readSessionBoolean,
+  removeLocalKey,
   removeOwnedExperienceState,
   storageKeys,
   writeLocalBoolean,
   writeSessionBoolean,
 } from "@/lib/storage";
-import type { ConfigValidation, ExperienceState } from "@/types";
+import type {
+  ConfigValidation,
+  ExperienceState,
+} from "@/types";
 
 const DevelopmentPreviewPanel =
   process.env.NODE_ENV !== "production"
@@ -89,6 +94,8 @@ function ExperienceController({
   const [focusPhotoOnOpen, setFocusPhotoOnOpen] = useState(false);
   const [burstKey, setBurstKey] = useState(0);
   const [celebrationKey, setCelebrationKey] = useState(0);
+  const introCompletionKey =
+    siteConfig.playfulGate.completionStorageKey || storageKeys.introComplete;
 
   const remaining = useMemo(
     () => getTimeRemaining(arrivalTimestamp, now),
@@ -115,12 +122,19 @@ function ExperienceController({
     }
 
     const currentNow = previewNow ?? Date.now();
+    const replayIntro =
+      process.env.NODE_ENV !== "production" &&
+      new URLSearchParams(window.location.search).get("replayIntro") === "1";
 
     if (hasReachedArrival(arrivalTimestamp, currentNow)) {
       setState("arrival");
       setHasInteracted(true);
       setMounted(true);
       return;
+    }
+
+    if (replayIntro) {
+      removeOwnedExperienceState([introCompletionKey]);
     }
 
     const accessGranted =
@@ -132,7 +146,14 @@ function ExperienceController({
       return;
     }
 
-    if (readLocalBoolean(storageKeys.introComplete)) {
+    const introCompleted =
+      siteConfig.playfulGate.rememberCompletion &&
+      !siteConfig.playfulGate.repeatOnEveryVisit &&
+      !replayIntro &&
+      (readLocalBoolean(introCompletionKey) ||
+        readLocalBoolean(storageKeys.legacyIntroComplete));
+
+    if (introCompleted) {
       setState("countdown");
       setHasInteracted(true);
       setMounted(true);
@@ -141,7 +162,7 @@ function ExperienceController({
 
     setState("opening");
     setMounted(true);
-  }, [arrivalTimestamp, setOverrideNow]);
+  }, [arrivalTimestamp, introCompletionKey, setOverrideNow]);
 
   useEffect(() => {
     if (!mounted) {
@@ -168,16 +189,37 @@ function ExperienceController({
     }
   }, [arrivalTimestamp, mounted, now, overrideNow, state]);
 
+  const focusCountdownHeading = () => {
+    window.setTimeout(() => {
+      const heading = document.getElementById("countdown-heading");
+      heading?.focus({ preventScroll: true });
+    }, 180);
+  };
+
   const completeOpening = () => {
-    writeLocalBoolean(storageKeys.introComplete, true);
+    if (siteConfig.playfulGate.rememberCompletion) {
+      writeLocalBoolean(introCompletionKey, true);
+      removeLocalKey(storageKeys.legacyIntroComplete);
+    }
+
     setHasInteracted(true);
     setState(remaining.hasArrived ? "arrival" : "countdown");
+
+    if (!remaining.hasArrived) {
+      focusCountdownHeading();
+    }
   };
 
   const acceptAccess = () => {
     writeSessionBoolean(storageKeys.accessGranted, true);
     setHasInteracted(true);
-    setState(readLocalBoolean(storageKeys.introComplete) ? "countdown" : "opening");
+    const introCompleted =
+      siteConfig.playfulGate.rememberCompletion &&
+      !siteConfig.playfulGate.repeatOnEveryVisit &&
+      (readLocalBoolean(introCompletionKey) ||
+        readLocalBoolean(storageKeys.legacyIntroComplete));
+
+    setState(introCompleted ? "countdown" : "opening");
   };
 
   const openLetter = (trigger: HTMLButtonElement | null, focusPhoto = false) => {
@@ -193,7 +235,7 @@ function ExperienceController({
   };
 
   const replay = () => {
-    removeOwnedExperienceState();
+    removeOwnedExperienceState([introCompletionKey]);
     setLetterOpen(false);
     setFocusPhotoOnOpen(false);
 
@@ -261,10 +303,17 @@ function ExperienceController({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <OpeningScene
-              onComplete={completeOpening}
-              onMoon={() => showFloatingMessage(siteConfig.copy.easterEggs.moon)}
-            />
+            {siteConfig.playfulGate.enabled ? (
+              <PlayfulSurpriseGate
+                onComplete={completeOpening}
+                onMoon={() => showFloatingMessage(siteConfig.copy.easterEggs.moon)}
+              />
+            ) : (
+              <OpeningScene
+                onComplete={completeOpening}
+                onMoon={() => showFloatingMessage(siteConfig.copy.easterEggs.moon)}
+              />
+            )}
           </motion.div>
         ) : null}
 
