@@ -69,9 +69,9 @@ export function JourneyRoute({
         >
           <defs>
             <linearGradient id="routeGlow" x1="0%" x2="100%" y1="0%" y2="0%">
-              <stop stopColor="#c98f9a" offset="0%" />
-              <stop stopColor="#ead09a" offset="64%" />
-              <stop stopColor="#f5c7ad" offset="100%" />
+              <stop stopColor="var(--rose-accent)" offset="0%" />
+              <stop stopColor="var(--gold-300)" offset="64%" />
+              <stop stopColor="var(--dawn-200)" offset="100%" />
             </linearGradient>
           </defs>
           <motion.g
@@ -80,15 +80,22 @@ export function JourneyRoute({
           >
             <path
               d="M575 191h130v11H575zM592 165h17v26h-17zM620 140h23v51h-23zM655 155h20v36h-20zM685 121h28v70h-28z"
-              fill="#f5c7ad"
-              opacity="0.32"
+              fill="var(--rose-light)"
+              opacity="0.46"
             />
-            <Building2 x={650} y={86} width={36} height={36} color="#ead09a" opacity="0.42" />
+            <Building2
+              x={650}
+              y={86}
+              width={36}
+              height={36}
+              color="var(--gold-400)"
+              opacity="0.5"
+            />
           </motion.g>
           <path
             d="M70 188 C 205 76, 406 52, 690 171"
             fill="none"
-            stroke="rgb(248 241 231 / 0.24)"
+            stroke="var(--border-medium)"
             strokeDasharray="8 12"
             strokeLinecap="round"
             strokeWidth="3"
@@ -105,9 +112,16 @@ export function JourneyRoute({
             animate={{ strokeDashoffset: 1 - clampedProgress }}
             transition={{ duration: reduceMotion ? 0 : 0.55, ease: "easeOut" }}
           />
-          <circle cx="70" cy="188" r="8" fill="#c98f9a" opacity="0.9" />
-          <circle cx="690" cy="171" r="10" fill="#ead09a" opacity="0.95" />
-          <Heart x={682} y={149} width={18} height={18} fill="#ead09a" color="#ead09a" />
+          <circle cx="70" cy="188" r="8" fill="var(--rose-accent)" opacity="0.86" />
+          <circle cx="690" cy="171" r="10" fill="var(--gold-300)" opacity="0.95" />
+          <Heart
+            x={682}
+            y={149}
+            width={18}
+            height={18}
+            fill="var(--gold-300)"
+            color="var(--gold-300)"
+          />
         </svg>
         <AnimatedPlane
           x={planePosition.x}

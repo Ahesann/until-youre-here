@@ -68,7 +68,7 @@ export function SeptemberCalendar() {
               className={day.isArrivalDay ? "calendar-day arrival-day" : "calendar-day"}
               animate={
                 day.isArrivalDay && revealed && !reduceMotion
-                  ? { scale: [1, 1.18, 1], boxShadow: "0 0 32px rgb(234 208 154 / 0.78)" }
+                  ? { scale: [1, 1.18, 1], boxShadow: "0 0 32px rgb(207 173 117 / 0.48)" }
                   : undefined
               }
               transition={{ duration: 0.7, ease: "easeOut" }}

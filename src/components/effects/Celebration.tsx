@@ -25,7 +25,7 @@ export function Celebration({ burstKey }: { burstKey: number }) {
         spread: reduceMotion ? 38 : 58,
         ticks: reduceMotion ? 80 : 140,
         scalar: reduceMotion ? 0.58 : 0.8,
-        colors: ["#ead09a", "#f8f1e7", "#c98f9a", "#efb39b"],
+        colors: ["#d7ba83", "#fffaf2", "#d98ca4", "#f7d7c7"],
         disableForReducedMotion: true,
       };
 
