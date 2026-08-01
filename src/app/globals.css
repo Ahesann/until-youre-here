@@ -1,32 +1,32 @@
 @import "tailwindcss";
 
 :root {
-  --background-cream: #fffaf2;
-  --background-cream-warm: #fdf5ec;
-  --background-cream-deep: #f9eee4;
-  --surface-primary: rgb(255 253 249 / 0.94);
-  --surface-secondary: rgb(255 249 245 / 0.9);
+  --background-cream: #faf4ec;
+  --background-cream-warm: #f7ebe0;
+  --background-cream-deep: #f2dfd1;
+  --surface-primary: rgb(255 253 249 / 0.95);
+  --surface-secondary: rgb(254 248 244 / 0.92);
   --surface-solid: #fffdf9;
-  --rose-watermark: #f6dce4;
-  --rose-watermark-soft: #fbecef;
-  --rose-light: #f2cbd7;
-  --rose-medium: #d98ca4;
-  --rose-accent: #bd5878;
-  --rose-accent-dark: #8f3654;
-  --burgundy: #723246;
-  --text-primary: #47383c;
-  --text-secondary: #766469;
-  --text-muted: #9a858b;
-  --border-soft: rgb(160 112 126 / 0.2);
-  --border-medium: rgb(142 91 108 / 0.34);
-  --gold-soft: #cfad75;
-  --shadow-romantic: rgb(104 65 78 / 0.13);
-  --focus-ring: #a94668;
+  --rose-watermark: #fecdd3;
+  --rose-watermark-soft: #ffe4e6;
+  --rose-light: #fca5a5;
+  --rose-medium: #f87171;
+  --rose-accent: #dc2626;
+  --rose-accent-dark: #b91c1c;
+  --burgundy: #881337;
+  --text-primary: #3b1219;
+  --text-secondary: #6b2637;
+  --text-muted: #9f495d;
+  --border-soft: rgb(220 38 38 / 0.18);
+  --border-medium: rgb(185 28 28 / 0.32);
+  --gold-soft: #d97706;
+  --shadow-romantic: rgb(185 28 28 / 0.14);
+  --focus-ring: #dc2626;
 
   --midnight-950: var(--background-cream);
   --midnight-900: var(--background-cream-warm);
-  --navy-800: #f2e2e5;
-  --navy-700: #ead3d9;
+  --navy-800: #fee2e2;
+  --navy-700: #fecaca;
   --cream-100: var(--surface-solid);
   --cream-200: var(--background-cream-deep);
   --rose-400: var(--rose-accent);
@@ -34,9 +34,9 @@
   --burgundy-600: var(--burgundy);
   --burgundy-500: var(--rose-accent-dark);
   --gold-400: var(--gold-soft);
-  --gold-300: #d7ba83;
-  --peach-300: #f2c2ad;
-  --dawn-200: #f7d7c7;
+  --gold-300: #f59e0b;
+  --peach-300: #fca5a5;
+  --dawn-200: #fecdd3;
   --ink: var(--text-primary);
   --glass: var(--surface-primary);
   --glass-strong: var(--surface-secondary);
@@ -44,13 +44,13 @@
   --shadow-soft: 0 24px 70px var(--shadow-romantic);
   --surprise-window: var(--surface-solid);
   --surprise-field: #fffefd;
-  --surprise-border: #c9b8bd;
-  --surprise-border-strong: #9e858d;
+  --surprise-border: #fca5a5;
+  --surprise-border-strong: #dc2626;
   --surprise-text: var(--text-primary);
   --surprise-muted: var(--text-secondary);
   --surprise-accent: var(--rose-accent);
   --surprise-accent-dark: var(--rose-accent-dark);
-  --surprise-titlebar: #f8ecef;
+  --surprise-titlebar: #ffe4e6;
   --surprise-focus: var(--focus-ring);
   --font-heading:
     "Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif;
@@ -944,10 +944,6 @@ input:focus-visible,
   transform: translate(-50%, -50%);
 }
 
-.plane-button svg:not(.plane-heart) {
-  transform: rotate(18deg);
-}
-
 .plane-heart {
   position: absolute;
   left: -6px;
@@ -1216,7 +1212,7 @@ input:focus-visible,
 
 .envelope-seal {
   position: absolute;
-  top: 88px;
+  top: 94px;
   left: 50%;
   display: grid;
   width: 46px;
@@ -1225,7 +1221,7 @@ input:focus-visible,
   border-radius: 999px;
   background: var(--burgundy-600);
   color: var(--gold-300);
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   box-shadow: 0 0 22px rgb(116 45 69 / 0.55);
 }
 
@@ -1555,13 +1551,66 @@ input:focus-visible,
   }
 }
 
+@media (max-width: 480px) {
+  .experience-shell {
+    padding: calc(12px + env(safe-area-inset-top))
+      calc(10px + env(safe-area-inset-right))
+      calc(16px + env(safe-area-inset-bottom))
+      calc(10px + env(safe-area-inset-left));
+  }
+
+  .surprise-window {
+    width: min(100%, calc(100vw - 16px));
+    min-height: auto;
+  }
+
+  .surprise-window-body {
+    padding: 0.75rem;
+    gap: 0.6rem;
+  }
+
+  .surprise-question-field {
+    min-height: 76px;
+    padding: 0.6rem;
+  }
+
+  .surprise-question-field p {
+    font-size: clamp(0.95rem, 4vw, 1.15rem);
+  }
+
+  .surprise-play-area {
+    min-height: 140px;
+  }
+
+  .letter-dialog {
+    width: min(96vw, 560px);
+    max-height: min(90vh, 680px);
+    padding: 1.2rem 1rem;
+  }
+
+  .journey-labels {
+    font-size: 0.75rem;
+  }
+
+  .floating-controls {
+    right: calc(12px + env(safe-area-inset-right));
+    bottom: calc(12px + env(safe-area-inset-bottom));
+  }
+}
+
 @media (max-width: 350px) {
   .countdown-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.4rem;
   }
 
   .countdown-card {
-    min-height: 5.7rem;
+    min-height: 5.2rem;
+    padding: 0.4rem 0.2rem;
+  }
+
+  .countdown-value {
+    font-size: clamp(1.6rem, 8.5vw, 2.8rem);
   }
 
   .floating-controls {
@@ -1595,6 +1644,11 @@ input:focus-visible,
 
   .opening-copy {
     min-height: 8rem;
+  }
+
+  .surprise-window {
+    max-height: calc(100vh - 24px);
+    overflow-y: auto;
   }
 }
 

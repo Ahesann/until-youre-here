@@ -113,7 +113,7 @@ export const siteConfig = {
     // Keep the "T" between date and time, and include an explicit UTC offset.
     // The offset matters because it makes the countdown identical no matter
     // which local timezone the visitor's device is using.
-    arrivalDateISO: "2026-09-15T12:00:00+01:00",
+    arrivalDateISO: "2026-09-28T12:00:00+01:00",
 
     // Journey progress begins from this timestamp.
     countdownStartDateISO: "2026-07-24T00:00:00+01:00",
@@ -254,12 +254,11 @@ export const siteConfig = {
       leadIn: "There is something I have been trying to say.",
 
       paragraphs: [
-        "My love,",
-        "Being away from you has made me realise that home is not a city, a country, or a building.",
-        "Home is the feeling I have whenever I am with you.",
-        "I have counted the days, the hours, and even the smallest moments until your arrival.",
-        "Welcome to the UK. More importantly, welcome to our next chapter.",
-        "I love you—today, in September, and in every life that comes after this one.",
+        "My Love,",
+        "Our story began online, but it soon became the most beautiful part of my life. In just three months, we met, got engaged, and became husband and wife.",
+        "Now I am in the UK, waiting for 28 September 2026, when we can finally begin our new life together.",
+        "Home is not a place—home is wherever you are.",
+        "Welcome to the UK, my love. Welcome to our next chapter.",
       ],
 
       signOff: "Forever yours,",

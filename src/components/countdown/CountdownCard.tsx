@@ -1,8 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
 import { formatUnit } from "@/lib/countdown";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 import type { CountdownPart } from "@/types";
 
 export function CountdownCard({
@@ -14,22 +12,11 @@ export function CountdownCard({
   asButton?: boolean;
   onActivate?: () => void;
 }) {
-  const reduceMotion = useReducedMotion();
   const value = String(part.value).padStart(part.key === "days" ? 2 : 2, "0");
   const content = (
     <>
       <span className="countdown-value" aria-hidden="true">
-        <AnimatePresence mode="popLayout" initial={false}>
-          <motion.span
-            key={value}
-            initial={reduceMotion ? false : { opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reduceMotion ? undefined : { opacity: 0, y: 8 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-          >
-            {value}
-          </motion.span>
-        </AnimatePresence>
+        <span>{value}</span>
       </span>
       <span className="countdown-label">{part.label}</span>
     </>

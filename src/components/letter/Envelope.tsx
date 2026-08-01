@@ -42,7 +42,12 @@ export function Envelope({
       />
       <motion.span
         className="envelope-seal"
-        animate={opening && !reduceMotion ? { opacity: 0, scale: 0.2 } : { opacity: 1, scale: 1 }}
+        initial={false}
+        animate={
+          opening && !reduceMotion
+            ? { opacity: 0, scale: 0.2, x: "-50%", y: "-50%" }
+            : { opacity: 1, scale: 1, x: "-50%", y: "-50%" }
+        }
         transition={{ duration: 0.32, ease: "easeOut" }}
       >
         <Heart aria-hidden="true" size={22} fill="currentColor" />

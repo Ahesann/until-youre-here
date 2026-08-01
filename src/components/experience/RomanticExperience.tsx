@@ -19,6 +19,7 @@ import { BurstParticles } from "@/components/effects/BurstParticles";
 import { Celebration } from "@/components/effects/Celebration";
 import { FloatingMessage } from "@/components/effects/FloatingMessage";
 import { TapParticles } from "@/components/effects/TapParticles";
+import { RandomPhotoBackground } from "@/components/effects/RandomPhotoBackground";
 import {
   calculateJourneyProgress,
   getTimeRemaining,
@@ -306,12 +307,10 @@ function ExperienceController({
             {siteConfig.playfulGate.enabled ? (
               <PlayfulSurpriseGate
                 onComplete={completeOpening}
-                onMoon={() => showFloatingMessage(siteConfig.copy.easterEggs.moon)}
               />
             ) : (
               <OpeningScene
                 onComplete={completeOpening}
-                onMoon={() => showFloatingMessage(siteConfig.copy.easterEggs.moon)}
               />
             )}
           </motion.div>
@@ -328,7 +327,6 @@ function ExperienceController({
               remaining={remaining}
               progress={progress}
               milestoneMessage={milestoneMessage}
-              onMoon={() => showFloatingMessage(siteConfig.copy.easterEggs.moon)}
               onPlaneEasterEgg={triggerPlaneEgg}
               onSecondsEasterEgg={() =>
                 showFloatingMessage(siteConfig.copy.easterEggs.seconds)
@@ -355,6 +353,7 @@ function ExperienceController({
           </motion.div>
         ) : null}
       </AnimatePresence>
+      <RandomPhotoBackground />
       <TapParticles />
       <BurstParticles burstKey={burstKey} origin="heart" />
       <Celebration burstKey={celebrationKey} />

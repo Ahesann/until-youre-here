@@ -3,16 +3,17 @@
 import { useState } from "react";
 import type { CSSProperties } from "react";
 import { motion } from "motion/react";
-import { Heart, Moon } from "lucide-react";
+import { Heart } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { CountdownDisplay } from "@/components/countdown/CountdownDisplay";
 import { CountdownProgress } from "@/components/countdown/CountdownProgress";
 import { RomanticMessages } from "@/components/countdown/RomanticMessages";
 import { JourneyRoute } from "@/components/journey/JourneyRoute";
-import { SeptemberCalendar } from "@/components/journey/SeptemberCalendar";
 import { Envelope } from "@/components/letter/Envelope";
 import { ResetExperienceButton } from "@/components/controls/ResetExperienceButton";
 import { PetalField } from "@/components/effects/PetalField";
+import { RealisticRose } from "@/components/effects/RealisticRose";
+import { RoseBackgroundField } from "@/components/effects/RoseBackgroundField";
 import { StarField } from "@/components/effects/StarField";
 import { useLongPress } from "@/hooks/useLongPress";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -22,7 +23,6 @@ export function CountdownScene({
   remaining,
   progress,
   milestoneMessage,
-  onMoon,
   onPlaneEasterEgg,
   onSecondsEasterEgg,
   onHeldHeart,
@@ -32,7 +32,6 @@ export function CountdownScene({
   remaining: TimeRemaining;
   progress: number;
   milestoneMessage: string;
-  onMoon: () => void;
   onPlaneEasterEgg: () => void;
   onSecondsEasterEgg: () => void;
   onHeldHeart: () => void;
@@ -53,18 +52,14 @@ export function CountdownScene({
 
   return (
     <section className="countdown-scene" aria-labelledby="countdown-heading">
+      <RoseBackgroundField count={5} />
       <StarField warmth={Math.max(0, (progress - 0.62) / 0.38)} />
-      <PetalField count={6} />
-      <button
-        type="button"
-        className="moon-button"
-        onClick={onMoon}
-        aria-label="Send a thought to the moon"
-      >
-        <Moon aria-hidden="true" size={36} />
-      </button>
+      <PetalField count={3} />
       <div className="container countdown-content">
-        <header className="countdown-hero">
+        <header className="countdown-hero relative flex flex-col items-center">
+          <div className="mb-2 transition-transform duration-500 hover:scale-105">
+            <RealisticRose size={160} className="mx-auto" />
+          </div>
           <p className="milestone">{milestoneMessage}</p>
           <h1 id="countdown-heading" className="section-heading" tabIndex={-1}>
             {siteConfig.copy.countdown.heading}
@@ -81,7 +76,6 @@ export function CountdownScene({
         <RomanticMessages messages={siteConfig.copy.countdown.rotatingMessages} />
         <CountdownProgress progress={progress} />
         <JourneyRoute progress={progress} onPlaneEasterEgg={onPlaneEasterEgg} />
-        <SeptemberCalendar />
 
         <div className="central-heart-wrap">
           <motion.button

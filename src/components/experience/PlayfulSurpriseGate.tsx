@@ -10,9 +10,9 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Moon } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { PetalField } from "@/components/effects/PetalField";
+import { RoseBackgroundField } from "@/components/effects/RoseBackgroundField";
 import { StarField } from "@/components/effects/StarField";
 import { HeartBurst } from "@/components/effects/HeartBurst";
 import { PetalBurst } from "@/components/effects/PetalBurst";
@@ -39,10 +39,8 @@ const SKIP_DELAY_MS = 360;
 
 export function PlayfulSurpriseGate({
   onComplete,
-  onMoon,
 }: {
   onComplete: (method: GateCompletionMethod) => void;
-  onMoon: () => void;
 }) {
   const reduceMotion = useReducedMotion();
   const { state, dispatch, questions, currentQuestion, escapeMessage } =
@@ -308,16 +306,9 @@ export function PlayfulSurpriseGate({
       aria-describedby={descriptionId}
       data-testid="playful-surprise-gate"
     >
+      <RoseBackgroundField count={7} />
       <StarField expanded={state.phase !== "questions"} />
       <PetalField count={7} />
-      <button
-        type="button"
-        className="moon-button"
-        onClick={onMoon}
-        aria-label="Send a thought to the moon"
-      >
-        <Moon aria-hidden="true" size={36} />
-      </button>
       <div className="playful-background-dim" aria-hidden="true" />
       <motion.div
         className="surprise-window"

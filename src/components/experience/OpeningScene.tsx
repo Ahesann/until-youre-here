@@ -7,6 +7,7 @@ import { siteConfig } from "@/config/site";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { PetalField } from "@/components/effects/PetalField";
 import { StarField } from "@/components/effects/StarField";
+import { RealisticRose } from "@/components/effects/RealisticRose";
 
 function RevealLine({
   text,
@@ -118,6 +119,9 @@ export function OpeningScene({
         transition={{ duration: reduceMotion ? 0.01 : 0.86, ease: "easeOut" }}
       />
       <div className="opening-content">
+        <div className="flex justify-center mb-4 transition-transform duration-500 hover:scale-105">
+          <RealisticRose size={140} />
+        </div>
         <div className="opening-copy">
           <RevealLine
             text={siteConfig.copy.opening.firstLine}

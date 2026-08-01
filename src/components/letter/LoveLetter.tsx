@@ -8,12 +8,9 @@ import {
   useMemo,
   useRef,
   useState,
-  type KeyboardEvent,
 } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { X } from "lucide-react";
 import { siteConfig } from "@/config/site";
-import { PhotoReveal } from "@/components/letter/PhotoReveal";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const focusableSelector =
@@ -32,7 +29,6 @@ export function LoveLetter({
 }) {
   const reduceMotion = useReducedMotion();
   const dialogRef = useRef<HTMLDivElement | null>(null);
-  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const [visibleParagraphs, setVisibleParagraphs] = useState(0);
   const paragraphs = siteConfig.copy.letter.paragraphs;
   const allVisible = visibleParagraphs >= paragraphs.length;
@@ -52,10 +48,10 @@ export function LoveLetter({
         if (photo) {
           photo.focus();
         } else {
-          closeButtonRef.current?.focus();
+          dialogRef.current?.focus();
         }
       } else {
-        closeButtonRef.current?.focus();
+        dialogRef.current?.focus();
       }
     }, 60);
 
@@ -134,30 +130,19 @@ export function LoveLetter({
         >
           <motion.div
             ref={dialogRef}
+            tabIndex={-1}
             className="letter-dialog"
             role="dialog"
             aria-modal="true"
-            aria-labelledby="letter-title"
+            aria-label="Love Letter"
             onKeyDown={handleKeyDown}
             initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 38, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 20, scale: 0.98 }}
             transition={{ duration: reduceMotion ? 0.08 : 0.32, ease: "easeOut" }}
           >
-            <button
-              ref={closeButtonRef}
-              type="button"
-              className="icon-button letter-close"
-              onClick={onClose}
-              aria-label={siteConfig.copy.letter.closeLabel}
-            >
-              <X aria-hidden="true" size={20} />
-            </button>
             <div className="letter-scroll">
               <div className="letter-content">
-                <h2 id="letter-title" className="section-heading">
-                  {siteConfig.copy.letter.leadIn}
-                </h2>
                 {visibleItems.map((paragraph, index) => (
                   <motion.p
                     key={`${paragraph}-${index}`}
@@ -180,7 +165,6 @@ export function LoveLetter({
                       <br />
                       <span>{siteConfig.people.husbandName}</span>
                     </div>
-                    <PhotoReveal />
                   </>
                 ) : null}
               </div>
